@@ -1,0 +1,25 @@
+{
+  "name": "jwt_auth",
+  "version": "1.0.0",
+  "description": "This is an authentication project that authenticates a client via jwt",
+  "keywords": [
+    "jwt"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "jwt_auth"
+  },
+  "license": "ISC",
+  "author": "John Ericta",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2"
+  }
+}
