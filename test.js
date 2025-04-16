@@ -2,6 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
+
 const app = express();
 const PORT = 3000;
 const SECRET_KEY = 'xxxx-xxxx';
@@ -50,6 +51,48 @@ async function login(email, password) {
 register('Sandeep', 'ex@gmail.com', 'exm123', function(){
     login('ex@gmail.com', 'exm123');
 });
+
+// async function registerUser(username, email, password) {
+//     try {
+//         const response = await fetch('http://localhost:3000/register', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify({ username, email, password }),
+//         });
+
+//         if (response.ok) {
+//             console.log('User registered successfully.');
+//         } else {
+//             console.error('Failed to register user.');
+//         }
+//     } catch (error) {
+//         console.error('Error:', error);
+//     }
+// }
+
+async function loginUser(email, password) {
+    try {
+        const response = await fetch('http://localhost:3000/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+        });
+
+        if (response.ok) {
+            const { token } = await response.json();
+            console.log('Login successful. JWT Token:', token);
+        } else {
+            console.error('Login failed.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
 
 
 
