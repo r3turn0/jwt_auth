@@ -27,12 +27,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const db = require("./models");
-// const Role = db.role;
-// const User = db.user;
-// const Table = db.table;
+const Role = db.role;
+const User = db.user;
+const Table = db.table;
 
 db.sequelize.sync({force: true}).then(() => {
   console.log('Drop and Resync Db');
+  initial();
 });
 
 // simple route for homepage
@@ -40,22 +41,22 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to Elit Tile API."});
 });
 
-// function initial() {
-//     Role.create({
-//       id: 1,
-//       name: "user"
-//     });
+function initial() {
+    Role.create({
+      id: 1,
+      name: "user"
+    });
    
-//     Role.create({
-//       id: 2,
-//       name: "moderator"
-//     });
+    Role.create({
+      id: 2,
+      name: "moderator"
+    });
    
-//     Role.create({
-//       id: 3,
-//       name: "admin"
-//     });
-// }
+    Role.create({
+      id: 3,
+      name: "admin"
+    });
+}
 
 
 require("./routes/routes")(app);
