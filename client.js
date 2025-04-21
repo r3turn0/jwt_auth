@@ -2,6 +2,7 @@ const http = require('http');
 const url = require('url');
 const path = require('path');
 const { LocalStorage } = require('node-localstorage');
+const localStorage = new LocalStorage('./scratch');
 
 require('dotenv').config({path: path.resolve(__dirname + '/.env')});
 console.log({path: path.resolve(__dirname + '/.env')});
@@ -37,7 +38,7 @@ const signup = async (username, email, password) => {
     });
 
     if (!response.ok) {
-      throw new Error('Signup failed');
+      throw new Error('Signup Failed.');
     }
 
     const data = await response.json();
@@ -57,16 +58,22 @@ const signin = async(username, password) => {
       body: JSON.stringify({ username, password })
     });
 
-    // if (!response.ok) {
-    //   throw new Error('Signin Failed');
-    // }
+    if (!response.ok) {
+      throw new Error('Signin Failed');
+    }
+
     const data = await response.json();
     console.log('Signin successful:', data);
     
     // save the token for future use
-    const localStorage = new LocalStorage('./scratch');
-    localStorage.setItem('jwtToken', data.accesToken);
-    
+    if(data.accessToken) {
+      localStorage.setItem('jwtToken', data.accessToken);
+      console.log('Token stored in localStorage:', localStorage.getItem('jwtToken'));
+    }
+    else {
+      console.log('No token returned during signin.');
+    }
+
 } catch (error) {
     console.error('Error during signin:', error.message);
   }
@@ -75,6 +82,27 @@ const signin = async(username, password) => {
 // Example usage
 //signup('exampleUser', 'john@tiledata.net', 'securePassword123')
 signin('exampleUser', 'securePassword123');
+
+const fetchWithToken = async () => {
+  const token = localStorage.getItem("jwtToken"); // Retrieve the token from storage
+  console.log('Retrivieng token:', token);
+  const response = await fetch('http://localhost:8080/api/tables/elittile', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': `${token}`, // Include token here
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Request failed: fetchWithToken');
+  }
+
+  const data = await response.json();
+  console.log('Table Data:', data);
+};
+
+fetchWithToken().catch((err) => console.error(err.message));
 
 
 // (async () => {

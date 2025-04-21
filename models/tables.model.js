@@ -1,12 +1,12 @@
+//   id: {
+//     type: Sequelize.INTEGER,
+//     primaryKey: true
+//   },
+//   name: {
+//     type: Sequelize.STRING
+//   }
 module.exports = (sequelize, Sequelize) => {
     const ElitTile = sequelize.define("e_product", {
-    //   id: {
-    //     type: Sequelize.INTEGER,
-    //     primaryKey: true
-    //   },
-    //   name: {
-    //     type: Sequelize.STRING
-    //   }
         internal_id: "numeric",
         externalid: "character varying",
         displayname: "character varying",

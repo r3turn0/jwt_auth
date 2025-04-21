@@ -4,7 +4,7 @@ const router = require("express").Router();
 
 router.get("/elittile", 
   [authJwt.verifyToken], 
-  controller.eproducts
+  controller.eProduct
 );
   
 module.exports = router;
