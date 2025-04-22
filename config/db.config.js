@@ -13,6 +13,7 @@ require('dotenv').config();
 //     }
 //   };
 
+// The database configuration
   module.exports = {
     HOST: process.env.PGSERVER,
     USER: process.env.NETSUITE_USER,

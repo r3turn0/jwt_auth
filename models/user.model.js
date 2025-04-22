@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 module.exports = (sequelize, Sequelize) => {
     const User = sequelize.define("users", {
       username: {
@@ -9,7 +11,10 @@ module.exports = (sequelize, Sequelize) => {
       password: {
         type: Sequelize.STRING
       }
-    });
-  
+    },
+    {
+      schema: process.env.SCHEMA
+    }
+  );
     return User;
   }; 

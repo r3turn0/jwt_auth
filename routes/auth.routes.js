@@ -1,26 +1,28 @@
-// Aunthentication
+// Authentication
 const { verifySignUp } = require("../middleware");
 const controller = require("../controllers/auth.controller");
 const router = require("express").Router();
 
-// router.get("/authenticate", (req, res) => {
-//     res.json({"message": '/authenticate success'});
-// });
+// Test route to verify authentication endpoint
+router.get("/authenticate", (req, res) => {
+  res.json({"message": '/authenticate success'});
+});
 
-
-
+// Route for user signup with middleware checks
 router.post(
   "/signup",
   [
-    verifySignUp.checkDuplicateUsernameOrEmail,
-    verifySignUp.checkRolesExisted
+  verifySignUp.checkDuplicateUsernameOrEmail, // Check if username or email already exists
+  verifySignUp.checkRolesExisted // Validate roles provided in the request
   ],
-  controller.signup
+  controller.signup // Call the signup controller
 );
 
-router.post("/signin", controller.signin);
+// Route for user signin
+router.post("/signin", controller.signin); // Call the signin controller
 
-module.exports = router; 
+// Export the router to be used in other parts of the application
+module.exports = router;
 
 // module.exports = function(app) {
   

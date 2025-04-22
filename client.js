@@ -80,8 +80,9 @@ const signin = async(username, password) => {
 };
 
 // Example usage
-//signup('exampleUser', 'john@tiledata.net', 'securePassword123')
-signin('exampleUser', 'securePassword123');
+signup(user, 'john@tiledata.net', NETSUITE_PASSWORD)
+
+signin(user, NETSUITE_PASSWORD);
 
 const fetchWithToken = async () => {
   const token = localStorage.getItem("jwtToken"); // Retrieve the token from storage
