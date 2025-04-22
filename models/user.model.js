@@ -13,7 +13,9 @@ module.exports = (sequelize, Sequelize) => {
       }
     },
     {
-      schema: process.env.SCHEMA
+      schema: process.env.SCHEMA,
+      timestamps: false, // Disables Sequelize's createdAt and updatedAt fields
+      freezeTableName: true // Ensures Sequelize won't pluralize the table name
     }
   );
     return User;

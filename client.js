@@ -80,14 +80,14 @@ const signin = async(username, password) => {
 };
 
 // Example usage
-signup(user, 'john@tiledata.net', NETSUITE_PASSWORD)
+// signup(user, 'john@tiledata.net', password)
 
-signin(user, NETSUITE_PASSWORD);
+signin(user, password);
 
 const fetchWithToken = async () => {
   const token = localStorage.getItem("jwtToken"); // Retrieve the token from storage
   console.log('Retrivieng token:', token);
-  const response = await fetch('http://localhost:8080/api/tables/elittile', {
+  const response = await fetch('http://localhost:8080/api/tables/e_product', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -96,7 +96,7 @@ const fetchWithToken = async () => {
   });
 
   if (!response.ok) {
-    throw new Error('Request failed: fetchWithToken');
+    throw new Error('Request failed: fetchWithToken', response);
   }
 
   const data = await response.json();
@@ -104,7 +104,6 @@ const fetchWithToken = async () => {
 };
 
 fetchWithToken().catch((err) => console.error(err.message));
-
 
 // (async () => {
 //   try {

@@ -65,7 +65,10 @@ module.exports = (sequelize, Sequelize) => {
             pid : "character varying"
         },
         {
-            schema: process.env.SCHEMA
+            schema: process.env.SCHEMA,
+            timestamps: false, // Disables Sequelize's createdAt and updatedAt fields
+            freezeTableName: true, // Ensures Sequelize won't pluralize the table name
+            hasPrimaryKey: false // Indicate no primary key
         }
     );
     return E_Product;

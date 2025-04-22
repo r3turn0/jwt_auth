@@ -28,9 +28,9 @@ const User = db.user; // Access the User model.
 const Table = db.table; // Access the Table model (if applicable).
 
 // Sync the database and optionally drop existing tables
-db.sequelize.sync({ force: true }).then(() => {
-  console.log('Drop and Resync Db'); // Log a message when the database is reset.
-  initial(); // Call the `initial` function to populate the database with default roles.
+db.sequelize.sync({ force: false }).then(() => {
+  //console.log('Drop and Resync Db'); // Log a message when the database is reset.
+  //initial(); // Call the `initial` function to populate the database with default roles.
 });
 
 // Define a simple GET route for the homepage
