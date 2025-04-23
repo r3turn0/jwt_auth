@@ -103,15 +103,5 @@ const fetchWithToken = async () => {
   console.log('Table Data:', data);
 };
 
+// Call the function to fetch data with token for e_product
 fetchWithToken().catch((err) => console.error(err.message));
-
-// (async () => {
-//   try {
-//     const req = http.get(header, (res) => {
-//       console.log(res.statusMessage);
-//     });
-//   }
-//   catch (err) {
-//     console.log('An error has occured: ', err);
-//   }
-// })();

@@ -14,7 +14,12 @@ const sequelize = new Sequelize(
       min: config.pool.min,
       acquire: config.pool.acquire,
       idle: config.pool.idle
-    }
+    },
+    define: {
+      hasPrimaryKey: config.define.hasPrimaryKey, // Disables Sequelize's primary key generation
+      noPrimaryKey: config.define.noPrimaryKey // Disables Sequelize's primary key generation
+    },
+    logging: config.logging // Enable logging for debugging
   }
 );
 
@@ -25,6 +30,7 @@ db.sequelize = sequelize;
 
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
+db.info = require("../models/info.model.js")(sequelize, Sequelize);
 db.e_product = require("../models/tables.model.js")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {

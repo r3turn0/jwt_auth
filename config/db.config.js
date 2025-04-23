@@ -1,17 +1,4 @@
 require('dotenv').config();
-// module.exports = {
-//     HOST: "localhost",
-//     USER: "DUser",
-//     PASSWORD: "eLiteTileP@55w1rd!",
-//     DB: "ETCDP",
-//     dialect: "postgres",
-//     pool: {
-//       max: 5,
-//       min: 0,
-//       acquire: 30000,
-//       idle: 10000
-//     }
-//   };
 
 // The database configuration
   module.exports = {
@@ -26,6 +13,10 @@ require('dotenv').config();
       min: 0,
       acquire: 30000,
       idle: 10000
+    },
+    define: {
+      hasPrimaryKey: false, // Disables Sequelize's primary key generation
+      noPrimaryKey: true, // Disables Sequelize's primary key generation
     },
     logging: console.log
   };
