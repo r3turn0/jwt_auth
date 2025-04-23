@@ -57,13 +57,14 @@
 //    ],
 //  });
 const db = require("../models"); // Ensure e_product is correctly imported from the models
-const e_product = db.e_product; // Accessing the `e_product` model from the database models.
+const e_product = db.table['e_product']; // Accessing the `e_product` model from the database models.
 const { QueryTypes } = require('sequelize'); // Importing QueryTypes for raw queries.
 
+// GET REQUESTS
 // Exporting an asynchronous function named `e_product` to handle a specific route or API endpoint.
 exports.e_product = async (req, res) => {
    try {
-      const ep = await db.sequelize.query(`SELECT * FROM etc.e_product`, { type: QueryTypes.SELECT });
+      const p = await db.sequelize.query(`SELECT * FROM etc.e_product`, { type: QueryTypes.SELECT });
       // Attempting to fetch all records from the `e_product` model using the `findAll` method.
       // This assumes `e_product` is a Sequelize model or similar ORM model.
       // const ep = await e_product.findAll({
@@ -72,9 +73,9 @@ exports.e_product = async (req, res) => {
       //    }
       // });
       // Sending a successful HTTP response (status code 200) with the fetched data in JSON format.
-      res.status(200).send(JSON.stringify(ep)); // Sending the fetched data as a JSON string response.
+      res.status(200).send(JSON.stringify(p)); // Sending the fetched data as a JSON string response.
       // Logging the fetched data to the console for debugging purposes.
-      console.log('data:', ep);
+      console.log('data:', p);
    } catch (error) {
       // Logging an error message to the console if an exception occurs during the `findAll` operation.
       console.log("Error fetching products:", error.message);
@@ -83,6 +84,82 @@ exports.e_product = async (req, res) => {
    }
 };
 
+exports.e_shopify = async (req, res) => {
+   try {
+      const p = await db.sequelize.query(`SELECT * FROM etc.e_shopify`, { type: QueryTypes.SELECT });
+      // Sending a successful HTTP response (status code 200) with the fetched data in JSON format.
+      res.status(200).send(JSON.stringify(p)); // Sending the fetched data as a JSON string response.
+      // Logging the fetched data to the console for debugging purposes.
+      console.log('data:', p);
+   } catch (error) {
+      // Logging an error message to the console if an exception occurs during the `findAll` operation.
+      console.log("Error fetching products:", error.message);
+      // Sending an HTTP error response (status code 500) with a generic error message in JSON format.
+      res.status(500).json({message: "An error has occured while fetching products"});
+   }
+};
+
+exports.la_nh_product = async (req, res) => {
+   try {
+      const p = await db.sequelize.query(`SELECT * FROM etc.la_nh_product`, { type: QueryTypes.SELECT });
+      // Sending a successful HTTP response (status code 200) with the fetched data in JSON format.
+      res.status(200).send(JSON.stringify(p)); // Sending the fetched data as a JSON string response.
+      // Logging the fetched data to the console for debugging purposes.
+      console.log('data:', p);
+   } catch (error) {
+      // Logging an error message to the console if an exception occurs during the `findAll` operation.
+      console.log("Error fetching products:", error.message);
+      // Sending an HTTP error response (status code 500) with a generic error message in JSON format.
+      res.status(500).json({message: "An error has occured while fetching products"});
+   }
+};
+
+exports.thd_product = async (req, res) => {
+   try {
+      const p = await db.sequelize.query(`SELECT * FROM etc.thd_product`, { type: QueryTypes.SELECT });
+      // Sending a successful HTTP response (status code 200) with the fetched data in JSON format.
+      res.status(200).send(JSON.stringify(p)); // Sending the fetched data as a JSON string response.
+      // Logging the fetched data to the console for debugging purposes.
+      console.log('data:', p);
+   } catch (error) {
+      // Logging an error message to the console if an exception occurs during the `findAll` operation.
+      console.log("Error fetching products:", error.message);
+      // Sending an HTTP error response (status code 500) with a generic error message in JSON format.
+      res.status(500).json({message: "An error has occured while fetching products"});
+   }
+};
+
+exports.tm_product = async (req, res) => {
+   try {
+      const p = await db.sequelize.query(`SELECT * FROM etc.tm_product`, { type: QueryTypes.SELECT });
+      // Sending a successful HTTP response (status code 200) with the fetched data in JSON format.
+      res.status(200).send(JSON.stringify(p)); // Sending the fetched data as a JSON string response.
+      // Logging the fetched data to the console for debugging purposes.
+      console.log('data:', p);
+   } catch (error) {
+      // Logging an error message to the console if an exception occurs during the `findAll` operation.
+      console.log("Error fetching products:", error.message);
+      // Sending an HTTP error response (status code 500) with a generic error message in JSON format.
+      res.status(500).json({message: "An error has occured while fetching products"});
+   }
+};
+
+exports.tm_shopify = async (req, res) => {
+   try {
+      const p = await db.sequelize.query(`SELECT * FROM etc.tm_shopify`, { type: QueryTypes.SELECT });
+      // Sending a successful HTTP response (status code 200) with the fetched data in JSON format.
+      res.status(200).send(JSON.stringify(p)); // Sending the fetched data as a JSON string response.
+      // Logging the fetched data to the console for debugging purposes.
+      console.log('data:', p);
+   } catch (error) {
+      // Logging an error message to the console if an exception occurs during the `findAll` operation.
+      console.log("Error fetching products:", error.message);
+      // Sending an HTTP error response (status code 500) with a generic error message in JSON format.
+      res.status(500).json({message: "An error has occured while fetching products"});
+   }
+};
+
+// POST REQUESTS
 exports.insert_e_product = async (req, res) => {
    const data = req.body; // Extracting the request body data.
    console.log('data:', data); // Logging the request body data for debugging purposes.
@@ -94,10 +171,10 @@ exports.insert_e_product = async (req, res) => {
          let values = Object.values(record); // Extracting the values from the record object.
          console.log('keys:', keys); // Logging the keys for debugging purposes.
          console.log('values:', values); // Logging the values for debugging purposes.
-         const ep = await e_product.create({
+         const p = await e_product.create({
             keys: values // Creating a new record in the `e_product` table with the extracted keys and values.
          });
-         console.log('Inserting record:', ep)
+         console.log('Inserting record:', p)
       }
       // Sending a successful HTTP response (status code 200) with the fetched data in JSON format.
       res.status(200).json({ 'message': 'Data inserted successfully'});

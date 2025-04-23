@@ -79,20 +79,20 @@ const signin = async(username, password) => {
   }
 };
 
-// Example usage
+// Example usages
 // signup(user, 'john@tiledata.net', password)
-
 signin(user, password);
 
+// GET REQUEST
 const fetchWithToken = async () => {
   const token = localStorage.getItem("jwtToken"); // Retrieve the token from storage
   console.log('Retrivieng token:', token);
-  const response = await fetch('http://localhost:8080/api/tables/e_product', {
+  const response = await fetch('http://localhost:8080/api/tables/tm_shopify', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       'x-access-token': `${token}`, // Include token here
-    },
+    }
   });
 
   if (!response.ok) {
@@ -103,5 +103,31 @@ const fetchWithToken = async () => {
   console.log('Table Data:', data);
 };
 
+const postWithToken = async () => {
+  const token = localStorage.getItem("jwtToken"); // Retrieve the token from storage
+  console.log('Retrivieng token:', token);
+  const response = await fetch('http://localhost:8080/api/tables/e_product', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': `${token}`, // Include token here
+    },
+    body: JSON.stringify([{ 
+      "internal_id": 1234567890,
+      "externalid": "E0001-01426-TEST",
+      "item_name": "Test Item"
+    }])
+  });
+
+  if (!response.ok) {
+    throw new Error('Request failed: postWithToken', response);
+  }
+
+  const data = await response.json();
+  console.log('Table Data:', data);
+};
+
 // Call the function to fetch data with token for e_product
-fetchWithToken().catch((err) => console.error(err.message));
+// fetchWithToken().catch((err) => console.error(err.message));
+postWithToken().catch((err) => console.error(err.message));
+

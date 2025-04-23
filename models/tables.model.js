@@ -58,6 +58,7 @@
 require('dotenv').config();
 const { QueryTypes } = require('sequelize'); // Importing QueryTypes for raw queries.
 
+// Table: e_product
 module.exports = async (sequelize, Sequelize) => {
     const i = await sequelize.query(
         `SELECT column_name, data_type 
@@ -79,7 +80,7 @@ module.exports = async (sequelize, Sequelize) => {
     for (let i = 0; i < columnNames.length; i++) {
         obj[columnNames[i]] = columnTypes[i]; // Creating an object with column names as keys and data types as values.
     }
-    const E_Product = sequelize.define("e_product",
+    const e_product = sequelize.define("e_product",
     obj, // replace this with hardcoded columns if needed from the top of this file
     {
         schema: process.env.SCHEMA,
@@ -88,6 +89,176 @@ module.exports = async (sequelize, Sequelize) => {
         hasPrimaryKey: false, // Indicate no primary key
         noPrimaryKey: true // Indicate no primary key
     });
-    return E_Product;
+    return e_product;
+  };
+
+  // Table: e_shopify
+  module.exports = async (sequelize, Sequelize) => {
+    const i = await sequelize.query(
+        `SELECT column_name, data_type 
+         FROM information_schema.columns 
+         WHERE table_name = 'e_shopify' AND column_name != 'id'`, // Excluding the column named 'id'
+        { type: QueryTypes.SELECT }
+    ).then((result) => {
+        return result.map((item) => {
+            return {
+                column_name: item.column_name,
+                data_type: item.data_type
+            };
+        });
+    });
+    const columns = await i; // Awaiting the result of the promise to get the columns.
+    const columnNames = columns.map((item) => item.column_name); // Extracting column names from the result.
+    const columnTypes = columns.map((item) => item.data_type); // Extracting data types from the result.
+    const obj = {};
+    for (let i = 0; i < columnNames.length; i++) {
+        obj[columnNames[i]] = columnTypes[i]; // Creating an object with column names as keys and data types as values.
+    }
+    const e_shopify = sequelize.define("e_shopify",
+    obj, // replace this with hardcoded columns if needed from the top of this file
+    {
+        schema: process.env.SCHEMA,
+        timestamps: false, // Disables Sequelize's createdAt and updatedAt fields
+        freezeTableName: true, // Ensures Sequelize won't pluralize the table name
+        hasPrimaryKey: false, // Indicate no primary key
+        noPrimaryKey: true // Indicate no primary key
+    });
+    return e_shopify;
+  };
+
+  // Table: la_nh_product
+  module.exports = async (sequelize, Sequelize) => {
+    const i = await sequelize.query(
+        `SELECT column_name, data_type 
+         FROM information_schema.columns 
+         WHERE table_name = 'la_nh_product' AND column_name != 'id'`, // Excluding the column named 'id'
+        { type: QueryTypes.SELECT }
+    ).then((result) => {
+        return result.map((item) => {
+            return {
+                column_name: item.column_name,
+                data_type: item.data_type
+            };
+        });
+    });
+    const columns = await i; // Awaiting the result of the promise to get the columns.
+    const columnNames = columns.map((item) => item.column_name); // Extracting column names from the result.
+    const columnTypes = columns.map((item) => item.data_type); // Extracting data types from the result.
+    const obj = {};
+    for (let i = 0; i < columnNames.length; i++) {
+        obj[columnNames[i]] = columnTypes[i]; // Creating an object with column names as keys and data types as values.
+    }
+    const la_nh_product = sequelize.define("la_nh_product",
+    obj, // replace this with hardcoded columns if needed from the top of this file
+    {
+        schema: process.env.SCHEMA,
+        timestamps: false, // Disables Sequelize's createdAt and updatedAt fields
+        freezeTableName: true, // Ensures Sequelize won't pluralize the table name
+        hasPrimaryKey: false, // Indicate no primary key
+        noPrimaryKey: true // Indicate no primary key
+    });
+    return la_nh_product;
+  };
+
+  // Table: thd_product
+  module.exports = async (sequelize, Sequelize) => {
+    const i = await sequelize.query(
+        `SELECT column_name, data_type 
+         FROM information_schema.columns 
+         WHERE table_name = 'thd_product' AND column_name != 'id'`, // Excluding the column named 'id'
+        { type: QueryTypes.SELECT }
+    ).then((result) => {
+        return result.map((item) => {
+            return {
+                column_name: item.column_name,
+                data_type: item.data_type
+            };
+        });
+    });
+    const columns = await i; // Awaiting the result of the promise to get the columns.
+    const columnNames = columns.map((item) => item.column_name); // Extracting column names from the result.
+    const columnTypes = columns.map((item) => item.data_type); // Extracting data types from the result.
+    const obj = {};
+    for (let i = 0; i < columnNames.length; i++) {
+        obj[columnNames[i]] = columnTypes[i]; // Creating an object with column names as keys and data types as values.
+    }
+    const thd_product = sequelize.define("thd_product",
+    obj, // replace this with hardcoded columns if needed from the top of this file
+    {
+        schema: process.env.SCHEMA,
+        timestamps: false, // Disables Sequelize's createdAt and updatedAt fields
+        freezeTableName: true, // Ensures Sequelize won't pluralize the table name
+        hasPrimaryKey: false, // Indicate no primary key
+        noPrimaryKey: true // Indicate no primary key
+    });
+    return thd_product;
+  };
+
+  // Table: tm_product
+  module.exports = async (sequelize, Sequelize) => {
+    const i = await sequelize.query(
+        `SELECT column_name, data_type 
+         FROM information_schema.columns 
+         WHERE table_name = 'tm_product' AND column_name != 'id'`, // Excluding the column named 'id'
+        { type: QueryTypes.SELECT }
+    ).then((result) => {
+        return result.map((item) => {
+            return {
+                column_name: item.column_name,
+                data_type: item.data_type
+            };
+        });
+    });
+    const columns = await i; // Awaiting the result of the promise to get the columns.
+    const columnNames = columns.map((item) => item.column_name); // Extracting column names from the result.
+    const columnTypes = columns.map((item) => item.data_type); // Extracting data types from the result.
+    const obj = {};
+    for (let i = 0; i < columnNames.length; i++) {
+        obj[columnNames[i]] = columnTypes[i]; // Creating an object with column names as keys and data types as values.
+    }
+    const tm_product = sequelize.define("tm_product",
+    obj, // replace this with hardcoded columns if needed from the top of this file
+    {
+        schema: process.env.SCHEMA,
+        timestamps: false, // Disables Sequelize's createdAt and updatedAt fields
+        freezeTableName: true, // Ensures Sequelize won't pluralize the table name
+        hasPrimaryKey: false, // Indicate no primary key
+        noPrimaryKey: true // Indicate no primary key
+    });
+    return tm_product;
+  };
+
+  // Table: tm_shopify
+  module.exports = async (sequelize, Sequelize) => {
+    const i = await sequelize.query(
+        `SELECT column_name, data_type 
+         FROM information_schema.columns 
+         WHERE table_name = 'tm_shopify' AND column_name != 'id'`, // Excluding the column named 'id'
+        { type: QueryTypes.SELECT }
+    ).then((result) => {
+        return result.map((item) => {
+            return {
+                column_name: item.column_name,
+                data_type: item.data_type
+            };
+        });
+    });
+    const columns = await i; // Awaiting the result of the promise to get the columns.
+    const columnNames = columns.map((item) => item.column_name); // Extracting column names from the result.
+    const columnTypes = columns.map((item) => item.data_type); // Extracting data types from the result.
+    const obj = {};
+    for (let i = 0; i < columnNames.length; i++) {
+        obj[columnNames[i]] = columnTypes[i]; // Creating an object with column names as keys and data types as values.
+    }
+    const tm_shopify = sequelize.define("tm_shopify",
+    obj, // replace this with hardcoded columns if needed from the top of this file
+    {
+        schema: process.env.SCHEMA,
+        timestamps: false, // Disables Sequelize's createdAt and updatedAt fields
+        freezeTableName: true, // Ensures Sequelize won't pluralize the table name
+        hasPrimaryKey: false, // Indicate no primary key
+        noPrimaryKey: true // Indicate no primary key
+    });
+    return tm_shopify;
   };
   
