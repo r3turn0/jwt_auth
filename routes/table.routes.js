@@ -39,6 +39,31 @@ router.post("/e_product",
     controller.insert_e_product
 );
 
+router.post("/e_shopify",
+  [authJwt.verifyToken],
+  controller.insert_e_shopify
+);
+
+router.post("/la_nh_product",
+  [authJwt.verifyToken],
+  controller.insert_la_nh_product
+);
+
+router.post("/thd_product",
+  [authJwt.verifyToken],
+  controller.insert_thd_product
+);
+
+router.post("/tm_product",
+  [authJwt.verifyToken],
+  controller.insert_tm_product
+);
+
+router.post("/tm_shopify",
+  [authJwt.verifyToken],
+  controller.insert_tm_shopify
+);
+
 // router.put("/e_product/update/:id",
 //     [authJwt.verifyToken],
 //     controller.update_e_product_by_id
