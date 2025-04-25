@@ -64,9 +64,9 @@ router.post("/tm_shopify",
   controller.insert_tm_shopify
 );
 
-// router.put("/e_product/update/:id",
-//     [authJwt.verifyToken],
-//     controller.update_e_product_by_id
-// );
+router.put("/e_product/update",
+    [authJwt.verifyToken],
+    controller.update_e_product
+);
   
 module.exports = router;

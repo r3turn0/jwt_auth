@@ -127,6 +127,32 @@ const postWithToken = async () => {
   console.log('Table Data:', data);
 };
 
+const updateWithToken = async () => {
+  const token = localStorage.getItem("jwtToken"); // Retrieve the token from storage
+  console.log('Retrivieng token:', token);
+  const response = await fetch('http://localhost:8080/api/tables/e_product/update', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': `${token}`, // Include token here
+    },
+    body: JSON.stringify([{ 
+      "internal_id": 1234567890,
+      "externalid": "E0001-01426-TEST",
+      "item_name": "Updated Item"
+    }])
+  });
+
+  if (!response.ok) {
+    throw new Error('Request failed: updatedWithToken', response);
+  }
+
+  const data = await response.json();
+  console.log('Table Data:', data);
+};
+
+updateWithToken().catch((err) => console.error(err.message));
+
 // Call the function to fetch data with token for e_product
 // fetchWithToken().catch((err) => console.error(err.message));
 postWithToken().catch((err) => console.error(err.message));
