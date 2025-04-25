@@ -64,9 +64,35 @@ router.post("/tm_shopify",
   controller.insert_tm_shopify
 );
 
-router.put("/e_product/update",
+// PUT REQUESTS
+router.put("/e_product/update/:id",
     [authJwt.verifyToken],
     controller.update_e_product
 );
-  
+
+router.put("/e_shopify/update",
+  [authJwt.verifyToken],
+  controller.update_e_shopify
+);
+
+router.put("/la_nh_product/update",
+  [authJwt.verifyToken],
+  controller.update_la_nh_product
+);
+
+router.put("/thd_product/update",
+  [authJwt.verifyToken],
+  controller.update_thd_product
+);
+
+router.put("/tm_product/update",
+  [authJwt.verifyToken],
+  controller.update_tm_product
+);
+
+router.put("/tm_shopify/update",
+  [authJwt.verifyToken],
+  controller.update_tm_shopify
+);
+
 module.exports = router;

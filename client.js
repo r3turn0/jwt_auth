@@ -130,7 +130,7 @@ const postWithToken = async () => {
 const updateWithToken = async () => {
   const token = localStorage.getItem("jwtToken"); // Retrieve the token from storage
   console.log('Retrivieng token:', token);
-  const response = await fetch('http://localhost:8080/api/tables/e_product/update', {
+  const response = await fetch('http://localhost:8080/api/tables/e_product/update/1234567890', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

@@ -344,6 +344,7 @@ exports.insert_tm_shopify = async (req, res) => {
 // PUT REQUESTS
 exports.update_e_product = async (req, res) => {
    const e_product = await tables.e_product; // Ensure `e_product` is correctly imported from the database models.
+   const id = req.query.param //:id 
    const data = req.body; // Extracting the request body data.
    console.log('data:', data); // Logging the request body data for debugging purposes.
    let rec = {};
@@ -351,13 +352,14 @@ exports.update_e_product = async (req, res) => {
       // Attempting to insert all records from the `e_product` model using the `create` method.
       for (const record of data) {
          rec = record;
-         await e_product.update(record, {
-            where: { 
-               internal_id: record.internal_id,
-               externalid: record.externalid, 
-            } 
-         }); // Updating each record into the `e_product` model.
-         console.log('Updated e_product:', record); // Logging the inserted record for debugging purposes.
+         if(id === record.internal_id) {
+            await e_product.update(record, {
+               where: { 
+                  externalid: record.externalid 
+               } 
+            }); // Updating each record into the `e_product` model.
+            console.log('Updated e_product:', record); // Logging the inserted record for debugging purposes.
+         }
       }
       // Sending a successful HTTP response (status code 200) with a success message.
       res.status(200).json({ message: 'Data updated successfully' });
@@ -375,19 +377,22 @@ exports.update_e_product = async (req, res) => {
 
 exports.update_e_shopify = async (req, res) => {
    const e_shopify = await tables.e_shopify; // Ensure `e_shopify` is correctly imported from the database models.
+   const id = req.query.param //:id
    const data = req.body; // Extracting the request body data.
    console.log('data:', data); // Logging the request body data for debugging purposes.
    let rec = {};
    try {
       // Attempting to insert all records from the `e_shopify` model using the `create` method.
-      for (const record of data) {
-         rec = record;
-         await e_shopify.update(record, {
-            where: { 
-               variant_sku: record.variant_sku
-            } 
-         }); // Updating each record into the `e_shopify` model.
-         console.log('Updated e_shopify:', record); // Logging the inserted record for debugging purposes.
+      if(id === record.variant_sku) {
+         for (const record of data) {
+            rec = record;
+            await e_shopify.update(record, {
+               where: { 
+                  variant_sku: id
+               } 
+            }); // Updating each record into the `e_shopify` model.
+            console.log('Updated e_shopify:', record); // Logging the inserted record for debugging purposes.
+         }
       }
       // Sending a successful HTTP response (status code 200) with a success message.
       res.status(200).json({ message: 'Data updated successfully' });
@@ -405,19 +410,22 @@ exports.update_e_shopify = async (req, res) => {
 
 exports.update_la_nh_product = async (req, res) => {
    const la_nh_product = await tables.la_nh_product; // Ensure `la_nh_product` is correctly imported from the database models.
+   const id = req.query.param //:id
    const data = req.body; // Extracting the request body data.
    console.log('data:', data); // Logging the request body data for debugging purposes.
    let rec = {};
    try {
+      if (id === record.externalid) {
       // Attempting to insert all records from the `la_nh_product` model using the `create` method.
-      for (const record of data) {
-         rec = record;
-         await la_nh_product.update(record, {
-            where: { 
-               externalid: record.externalid
-            } 
-         }); // Updating each record into the `la_nh_product` model.
-         console.log('Updated la_nh_product:', record); // Logging the inserted record for debugging purposes.
+         for (const record of data) {
+            rec = record;
+            await la_nh_product.update(record, {
+               where: { 
+                  externalid: id
+               } 
+            }); // Updating each record into the `la_nh_product` model.
+            console.log('Updated la_nh_product:', record); // Logging the inserted record for debugging purposes.
+         }
       }
       // Sending a successful HTTP response (status code 200) with a success message.
       res.status(200).json({ message: 'Data updated successfully' });
@@ -435,19 +443,22 @@ exports.update_la_nh_product = async (req, res) => {
 
 exports.update_thd_product = async (req, res) => {
    const thd_product = await tables.thd_product; // Ensure `thd_product` is correctly imported from the database models.
+   const id = req.query.param //:id
    const data = req.body; // Extracting the request body data.
    console.log('data:', data); // Logging the request body data for debugging purposes.
    let rec = {};
    try {
-      // Attempting to insert all records from the `thd_product` model using the `create` method.
-      for (const record of data) {
-         rec = record;
-         await thd_product.update(record, {
-            where: { 
-               internal_id: record.internal_id
-            } 
-         }); // Updating each record into the `thd_product` model.
-         console.log('Updated thd_product:', record); // Logging the inserted record for debugging purposes.
+      if(id === record.internal_id) {
+         // Attempting to insert all records from the `thd_product` model using the `create` method.
+         for (const record of data) {
+            rec = record;
+            await thd_product.update(record, {
+               where: { 
+                  internal_id: id
+               } 
+            }); // Updating each record into the `thd_product` model.
+            console.log('Updated thd_product:', record); // Logging the inserted record for debugging purposes.
+         }
       }
       // Sending a successful HTTP response (status code 200) with a success message.
       res.status(200).json({ message: 'Data updated successfully' });
@@ -465,19 +476,22 @@ exports.update_thd_product = async (req, res) => {
 
 exports.update_tm_product = async (req, res) => {
    const tm_product = await tables.tm_product; // Ensure `tm_product` is correctly imported from the database models.
+   const id = req.query.param //:id
    const data = req.body; // Extracting the request body data.
    console.log('data:', data); // Logging the request body data for debugging purposes.
    let rec = {};
    try {
-      // Attempting to insert all records from the `tm_product` model using the `create` method.
-      for (const record of data) {
-         rec = record;
-         await tm_product.update(record, {
-            where: { 
-               externalid: record.externalid
-            } 
-         }); // Updating each record into the `tm_product` model.
-         console.log('Updated tm_product:', record); // Logging the inserted record for debugging purposes.
+      if(id === record.externalid) {
+         // Attempting to insert all records from the `tm_product` model using the `create` method.
+         for (const record of data) {
+            rec = record;
+            await tm_product.update(record, {
+               where: { 
+                  externalid: id
+               } 
+            }); // Updating each record into the `tm_product` model.
+            console.log('Updated tm_product:', record); // Logging the inserted record for debugging purposes.
+         }
       }
       // Sending a successful HTTP response (status code 200) with a success message.
       res.status(200).json({ message: 'Data updated successfully' });
@@ -495,19 +509,22 @@ exports.update_tm_product = async (req, res) => {
 
 exports.update_tm_shopify = async (req, res) => {
    const tm_shopify = await tables.tm_shopify; // Ensure `tm_shopify` is correctly imported from the database models.
+   const id = req.query.param //:id
    const data = req.body; // Extracting the request body data.
    console.log('data:', data); // Logging the request body data for debugging purposes.
    let rec = {};
    try {
-      // Attempting to insert all records from the `tm_shopify` model using the `create` method.
-      for (const record of data) {
-         rec = record;
-         await tm_shopify.update(record, {
-            where: { 
-               variant_sku: record.variant_sku
-            } 
-         }); // Updating each record into the `tm_shopify` model.
-         console.log('Updated tm_shopify:', record); // Logging the inserted record for debugging purposes.
+      if(id === record.variant_sku) {
+         // Attempting to insert all records from the `tm_shopify` model using the `create` method.
+         for (const record of data) {
+            rec = record;
+            await tm_shopify.update(record, {
+               where: { 
+                  variant_sku: id
+               } 
+            }); // Updating each record into the `tm_shopify` model.
+            console.log('Updated tm_shopify:', record); // Logging the inserted record for debugging purposes.
+         }
       }
       // Sending a successful HTTP response (status code 200) with a success message.
       res.status(200).json({ message: 'Data updated successfully' });
