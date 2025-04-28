@@ -151,9 +151,29 @@ const updateWithToken = async () => {
   console.log('Table Data:', data);
 };
 
-updateWithToken().catch((err) => console.error(err.message));
+
+const deleteWithToken = async () => {
+  const token = localStorage.getItem("jwtToken"); // Retrieve the token from storage
+  console.log('Retrivieng token:', token);
+  const response = await fetch('http://localhost:8080/api/tables/e_product/delete/1234567890', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': `${token}`, // Include token here
+    }
+  });
+  
+  if (!response.ok) {
+    throw new Error('Request failed: deleteWithToken', response);
+  }
+  
+  const data = await response.json();
+  console.log('Table Data:', data);
+};
 
 // Call the function to fetch data with token for e_product
 // fetchWithToken().catch((err) => console.error(err.message));
-postWithToken().catch((err) => console.error(err.message));
+//postWithToken().catch((err) => console.error(err.message));
+//updateWithToken().catch((err) => console.error(err.message));
+deleteWithToken().catch((err) => console.error(err.message));
 

@@ -17,5 +17,5 @@ module.exports = function(app) {
   // Register API routes with their respective base paths
   app.use("/api/auth/", auth); // Routes for authentication (e.g., login, signup)
   app.use("/api/tables/", tables); // Routes for table-related operations
-  app.use("/api/users/", user); // Routes for user-related operations
+  //app.use("/api/users/", user); // Routes for user-related operations
 };

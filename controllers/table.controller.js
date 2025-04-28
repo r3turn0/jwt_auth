@@ -349,13 +349,13 @@ exports.update_e_product = async (req, res) => {
    console.log('data:', data); // Logging the request body data for debugging purposes.
    let rec = {};
    try {
-      // Attempting to insert all records from the `e_product` model using the `create` method.
+      // Attempting to insert all records from the `e_product` model using the `update` method.
       for (const record of data) {
          rec = record;
          if(id === record.internal_id) {
             await e_product.update(record, {
                where: { 
-                  externalid: record.externalid 
+                  internal_id: record.internal_id 
                } 
             }); // Updating each record into the `e_product` model.
             console.log('Updated e_product:', record); // Logging the inserted record for debugging purposes.
@@ -382,7 +382,7 @@ exports.update_e_shopify = async (req, res) => {
    console.log('data:', data); // Logging the request body data for debugging purposes.
    let rec = {};
    try {
-      // Attempting to insert all records from the `e_shopify` model using the `create` method.
+      // Attempting to insert all records from the `e_shopify` model using the `update` method.
       if(id === record.variant_sku) {
          for (const record of data) {
             rec = record;
@@ -416,7 +416,7 @@ exports.update_la_nh_product = async (req, res) => {
    let rec = {};
    try {
       if (id === record.externalid) {
-      // Attempting to insert all records from the `la_nh_product` model using the `create` method.
+      // Attempting to insert all records from the `la_nh_product` model using the `update` method.
          for (const record of data) {
             rec = record;
             await la_nh_product.update(record, {
@@ -449,7 +449,7 @@ exports.update_thd_product = async (req, res) => {
    let rec = {};
    try {
       if(id === record.internal_id) {
-         // Attempting to insert all records from the `thd_product` model using the `create` method.
+         // Attempting to insert all records from the `thd_product` model using the `update` method.
          for (const record of data) {
             rec = record;
             await thd_product.update(record, {
@@ -482,7 +482,7 @@ exports.update_tm_product = async (req, res) => {
    let rec = {};
    try {
       if(id === record.externalid) {
-         // Attempting to insert all records from the `tm_product` model using the `create` method.
+         // Attempting to insert all records from the `tm_product` model using the `update` method.
          for (const record of data) {
             rec = record;
             await tm_product.update(record, {
@@ -515,7 +515,7 @@ exports.update_tm_shopify = async (req, res) => {
    let rec = {};
    try {
       if(id === record.variant_sku) {
-         // Attempting to insert all records from the `tm_shopify` model using the `create` method.
+         // Attempting to insert all records from the `tm_shopify` model using the `update` method.
          for (const record of data) {
             rec = record;
             await tm_shopify.update(record, {
@@ -537,5 +537,301 @@ exports.update_tm_shopify = async (req, res) => {
       console.log("Error update tm_shopify:", error.message);
       // Sending an HTTP error response (status code 500) with a generic error message in JSON format.
       res.status(500).json({ message: "An error has occurred while updating tm_shopify" });
+   }
+};
+
+// DELETE REQUESTS
+
+exports.delete_e_product = async (req, res) => {
+   const e_product = await tables.e_product; // Ensure `e_product` is correctly imported from the database models.
+   const id = req.params.id || req.query.id; // Extracting the parameter from the route or query string.
+   if (!id) {
+      console.log("Error: Missing 'param' in query.");
+      return res.status(400).json({ message: "Missing 'param' in query." });
+   }
+   //const data = req.body; // Extracting the request body data.
+   console.log('Finding record with id:', id); 
+   let data;
+   try {
+      data = await e_product.findAll({
+         where: {
+            internal_id: id // Filtering records based on the `internal_id` field.
+         }
+      });
+   }
+   catch (error) {
+      console.log("Error fetching e_product:", error.message);
+   }
+   console.log('data:', data); // Logging the request body data for debugging purposes.
+   let rec = {};
+   try {
+      // Attempting to delete a record from the `e_product` model using the `delete` method.
+      for (const record of data) {
+         rec = record;
+         if(id === record.internal_id) {
+            await e_product.destroy({
+               where: { 
+                  internal_id: id
+               } 
+            }); // Deleting each record in the `e_product` model.
+            console.log('Deleted e_product:', record); // Logging the inserted record for debugging purposes.
+         }
+      }
+      // Sending a successful HTTP response (status code 200) with a success message.
+      res.status(200).json({ message: 'Record deleted successfully' });
+   } catch (error) {
+      await rejected.create({
+         data: rec,
+         error: error.message
+      });
+      // Logging an error message to the console if an exception occurs during the `delete` operation.
+      console.log("Error delete e_product:", error.message);
+      // Sending an HTTP error response (status code 500) with a generic error message in JSON format.
+      res.status(500).json({ message: "An error has occurred while deleting e_product" });
+   }
+};
+
+exports.delete_e_shopify = async (req, res) => {
+   const e_shopify = await tables.e_shopify; // Ensure `e_shopify` is correctly imported from the database models.
+   const id = req.params.id || req.query.id; // Extracting the parameter from the route or query string.
+   if (!id) {
+      console.log("Error: Missing 'param' in query.");
+      return res.status(400).json({ message: "Missing 'param' in query." });
+   }
+   //const data = req.body; // Extracting the request body data.
+   console.log('Finding record with id:', id); 
+   let data;
+   try {
+      data = await e_shopify.findAll({
+         where: {
+            variant_sku: id // Filtering records based on the `internal_id` field.
+         }
+      });
+   }
+   catch (error) {
+      console.log("Error fetching e_shopify:", error.message);
+   }
+   console.log('data:', data); // Logging the request body data for debugging purposes.
+   let rec = {};
+   try {
+      // Attempting to delete a record from the `e_shopify` model using the `delete` method.
+      for (const record of data) {
+         rec = record;
+         if(id === record.internal_id) {
+            await e_shopify.destroy({
+               where: { 
+                  variant_sku: id
+               } 
+            }); // Deleting each record in the `e_shopify` model.
+            console.log('Deleted e_shopify:', record); // Logging the inserted record for debugging purposes.
+         }
+      }
+      // Sending a successful HTTP response (status code 200) with a success message.
+      res.status(200).json({ message: 'Record deleted successfully' });
+   } catch (error) {
+      await rejected.create({
+         data: rec,
+         error: error.message
+      });
+      // Logging an error message to the console if an exception occurs during the `delete` operation.
+      console.log("Error delete e_shopify:", error.message);
+      // Sending an HTTP error response (status code 500) with a generic error message in JSON format.
+      res.status(500).json({ message: "An error has occurred while deleting e_shopify" });
+   }
+};
+
+exports.delete_la_nh_product = async (req, res) => {
+   const la_nh_product = await tables.la_nh_product; // Ensure `la_nh_product` is correctly imported from the database models.
+   const id = req.params.id || req.query.id; // Extracting the parameter from the route or query string.
+   if (!id) {
+      console.log("Error: Missing 'param' in query.");
+      return res.status(400).json({ message: "Missing 'param' in query." });
+   }
+   //const data = req.body; // Extracting the request body data.
+   console.log('Finding record with id:', id); 
+   let data;
+   try {
+      data = await la_nh_product.findAll({
+         where: {
+            external_id: id // Filtering records based on the `external_id` field.
+         }
+      });
+   }
+   catch (error) {
+      console.log("Error fetching la_nh_product:", error.message);
+   }
+   console.log('data:', data); // Logging the request body data for debugging purposes.
+   let rec = {};
+   try {
+      // Attempting to delete a record from the `la_nh_product` model using the `delete` method.
+      for (const record of data) {
+         rec = record;
+         if(id === record.external_id) {
+            await la_nh_product.destroy({
+               where: { 
+                  external_id: id
+               } 
+            }); // Deleting each record in the `la_nh_product` model.
+            console.log('Deleted la_nh_product:', record); // Logging the inserted record for debugging purposes.
+         }
+      }
+      // Sending a successful HTTP response (status code 200) with a success message.
+      res.status(200).json({ message: 'Record deleted successfully' });
+   } catch (error) {
+      await rejected.create({
+         data: rec,
+         error: error.message
+      });
+      // Logging an error message to the console if an exception occurs during the `delete` operation.
+      console.log("Error delete la_nh_product:", error.message);
+      // Sending an HTTP error response (status code 500) with a generic error message in JSON format.
+      res.status(500).json({ message: "An error has occurred while deleting la_nh_product" });
+   }
+};
+
+exports.delete_thd_product = async (req, res) => {
+   const thd_product = await tables.thd_product; // Ensure `thd_product` is correctly imported from the database models.
+   const id = req.params.id || req.query.id; // Extracting the parameter from the route or query string.
+   if (!id) {
+      console.log("Error: Missing 'param' in query.");
+      return res.status(400).json({ message: "Missing 'param' in query." });
+   }
+   //const data = req.body; // Extracting the request body data.
+   console.log('Finding record with id:', id); 
+   let data;
+   try {
+      data = await thd_product.findAll({
+         where: {
+            internal_id: id // Filtering records based on the `internal_id` field.
+         }
+      });
+   }
+   catch (error) {
+      console.log("Error fetching thd_product:", error.message);
+   }
+   console.log('data:', data); // Logging the request body data for debugging purposes.
+   let rec = {};
+   try {
+      // Attempting to delete a record from the `thd_product` model using the `delete` method.
+      for (const record of data) {
+         rec = record;
+         if(id === record.internal_id) {
+            await thd_product.destroy({
+               where: { 
+                  internal_id: id
+               } 
+            }); // Deleting each record in the `thd_product` model.
+            console.log('Deleted thd_product:', record); // Logging the inserted record for debugging purposes.
+         }
+      }
+      // Sending a successful HTTP response (status code 200) with a success message.
+      res.status(200).json({ message: 'Record deleted successfully' });
+   } catch (error) {
+      await rejected.create({
+         data: rec,
+         error: error.message
+      });
+      // Logging an error message to the console if an exception occurs during the `delete` operation.
+      console.log("Error delete thd_product:", error.message);
+      // Sending an HTTP error response (status code 500) with a generic error message in JSON format.
+      res.status(500).json({ message: "An error has occurred while deleting thd_product" });
+   }
+};
+
+exports.delete_tm_product = async (req, res) => {
+   const tm_product = await tables.tm_product; // Ensure `tm_product` is correctly imported from the database models.
+   const id = req.params.id || req.query.id; // Extracting the parameter from the route or query string.
+   if (!id) {
+      console.log("Error: Missing 'param' in query.");
+      return res.status(400).json({ message: "Missing 'param' in query." });
+   }
+   //const data = req.body; // Extracting the request body data.
+   console.log('Finding record with id:', id); 
+   let data;
+   try {
+      data = await tm_product.findAll({
+         where: {
+            externalid: id // Filtering records based on the `externalid` field.
+         }
+      });
+   }
+   catch (error) {
+      console.log("Error fetching tm_product:", error.message);
+   }
+   console.log('data:', data); // Logging the request body data for debugging purposes.
+   let rec = {};
+   try {
+      // Attempting to delete a record from the `tm_product` model using the `delete` method.
+      for (const record of data) {
+         rec = record;
+         if(id === record.externalid) {
+            await tm_product.destroy({
+               where: { 
+                  externalid: id
+               } 
+            }); // Deleting each record in the `tm_product` model.
+            console.log('Deleted tm_product:', record); // Logging the inserted record for debugging purposes.
+         }
+      }
+      // Sending a successful HTTP response (status code 200) with a success message.
+      res.status(200).json({ message: 'Record deleted successfully' });
+   } catch (error) {
+      await rejected.create({
+         data: rec,
+         error: error.message
+      });
+      // Logging an error message to the console if an exception occurs during the `delete` operation.
+      console.log("Error delete tm_product:", error.message);
+      // Sending an HTTP error response (status code 500) with a generic error message in JSON format.
+      res.status(500).json({ message: "An error has occurred while deleting tm_product" });
+   }
+};
+
+exports.delete_tm_shopify = async (req, res) => {
+   const tm_shopify = await tables.tm_shopify; // Ensure `tm_shopify` is correctly imported from the database models.
+   const id = req.params.id || req.query.id; // Extracting the parameter from the route or query string.
+   if (!id) {
+      console.log("Error: Missing 'param' in query.");
+      return res.status(400).json({ message: "Missing 'param' in query." });
+   }
+   //const data = req.body; // Extracting the request body data.
+   console.log('Finding record with id:', id); 
+   let data;
+   try {
+      data = await tm_shopify.findAll({
+         where: {
+            variant_sku: id // Filtering records based on the `externalid` field.
+         }
+      });
+   }
+   catch (error) {
+      console.log("Error fetching tm_shopify:", error.message);
+   }
+   console.log('data:', data); // Logging the request body data for debugging purposes.
+   let rec = {};
+   try {
+      // Attempting to delete a record from the `tm_shopify` model using the `delete` method.
+      for (const record of data) {
+         rec = record;
+         if(id === record.externalid) {
+            await tm_shopify.destroy({
+               where: { 
+                  variant_sku: id
+               } 
+            }); // Deleting each record in the `tm_shopify` model.
+            console.log('Deleted tm_shopify:', record); // Logging the inserted record for debugging purposes.
+         }
+      }
+      // Sending a successful HTTP response (status code 200) with a success message.
+      res.status(200).json({ message: 'Record deleted successfully' });
+   } catch (error) {
+      await rejected.create({
+         data: rec,
+         error: error.message
+      });
+      // Logging an error message to the console if an exception occurs during the `deleted` operation.
+      console.log("Error deleting tm_shopify:", error.message);
+      // Sending an HTTP error response (status code 500) with a generic error message in JSON format.
+      res.status(500).json({ message: "An error has occurred while deleting tm_shopify" });
    }
 };

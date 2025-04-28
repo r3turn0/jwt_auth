@@ -95,4 +95,35 @@ router.put("/tm_shopify/update/:id",
   controller.update_tm_shopify
 );
 
+// DELETE REQUESTS
+
+router.delete("/e_product/delete/:id",
+    [authJwt.verifyToken],
+    controller.delete_e_product
+);
+
+router.delete("/e_shopify/delete/:id",
+  [authJwt.verifyToken],
+  controller.delete_e_shopify
+);
+
+router.delete("/la_nh_product/delete/:id",
+  [authJwt.verifyToken],
+  controller.delete_la_nh_product
+);
+
+router.delete("/thd_product/delete/:id",
+  [authJwt.verifyToken],
+  controller.delete_thd_product
+);
+
+router.delete("/tm_product/delete/:id",
+  [authJwt.verifyToken],
+  controller.delete_tm_product
+);
+
+router.delete("/tm_shopify/delete/:id",
+  [authJwt.verifyToken],
+  controller.delete_tm_shopify
+);
 module.exports = router;
