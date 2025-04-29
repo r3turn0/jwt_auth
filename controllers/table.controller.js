@@ -63,9 +63,9 @@ const rejected = db.rejected; // Accessing the rejected model from the database 
 
 // GET REQUESTS
 // Exporting an asynchronous function named `e_product` to handle a specific route or API endpoint.
-exports.e_product = async (req, res) => {
+exports.e_product = async (req, res, t) => {
    try {
-      const p = await db.sequelize.query(`SELECT * FROM etc.e_product`, { type: QueryTypes.SELECT });
+      const p = await db.sequelize.query(`SELECT * FROM etc.e_product`, { type: QueryTypes.SELECT, transaction: t });
       // Attempting to fetch all records from the `e_product` model using the `findAll` method.
       // This assumes `e_product` is a Sequelize model or similar ORM model.
       // const ep = await e_product.findAll({
@@ -85,9 +85,9 @@ exports.e_product = async (req, res) => {
          }
       };
       
-      exports.e_shopify = async (req, res) => {
+      exports.e_shopify = async (req, res, t) => {
          try {
-            const p = await db.sequelize.query(`SELECT * FROM etc.e_shopify`, { type: QueryTypes.SELECT });
+            const p = await db.sequelize.query(`SELECT * FROM etc.e_shopify`, { type: QueryTypes.SELECT, transaction: t });
             // Sending a successful HTTP response (status code 200) with the fetched data in JSON format.
             res.status(200).send(JSON.stringify(p)); // Sending the fetched data as a JSON string response.
             // Logging the fetched data to the console for debugging purposes.
@@ -100,9 +100,9 @@ exports.e_product = async (req, res) => {
    }
 };
 
-exports.la_nh_product = async (req, res) => {
+exports.la_nh_product = async (req, res, t) => {
    try {
-      const p = await db.sequelize.query(`SELECT * FROM etc.la_nh_product`, { type: QueryTypes.SELECT });
+      const p = await db.sequelize.query(`SELECT * FROM etc.la_nh_product`, { type: QueryTypes.SELECT, transaction: t });
       // Sending a successful HTTP response (status code 200) with the fetched data in JSON format.
       res.status(200).send(JSON.stringify(p)); // Sending the fetched data as a JSON string response.
       // Logging the fetched data to the console for debugging purposes.
@@ -115,9 +115,9 @@ exports.la_nh_product = async (req, res) => {
    }
 };
 
-exports.thd_product = async (req, res) => {
+exports.thd_product = async (req, res, t) => {
    try {
-      const p = await db.sequelize.query(`SELECT * FROM etc.thd_product`, { type: QueryTypes.SELECT });
+      const p = await db.sequelize.query(`SELECT * FROM etc.thd_product`, { type: QueryTypes.SELECT, transaction: t });
       // Sending a successful HTTP response (status code 200) with the fetched data in JSON format.
       res.status(200).send(JSON.stringify(p)); // Sending the fetched data as a JSON string response.
       // Logging the fetched data to the console for debugging purposes.
@@ -130,9 +130,9 @@ exports.thd_product = async (req, res) => {
    }
 };
 
-exports.tm_product = async (req, res) => {
+exports.tm_product = async (req, res, t) => {
    try {
-      const p = await db.sequelize.query(`SELECT * FROM etc.tm_product`, { type: QueryTypes.SELECT });
+      const p = await db.sequelize.query(`SELECT * FROM etc.tm_product`, { type: QueryTypes.SELECT, transaction: t });
       // Sending a successful HTTP response (status code 200) with the fetched data in JSON format.
       res.status(200).send(JSON.stringify(p)); // Sending the fetched data as a JSON string response.
       // Logging the fetched data to the console for debugging purposes.
@@ -145,9 +145,9 @@ exports.tm_product = async (req, res) => {
    }
 };
 
-exports.tm_shopify = async (req, res) => {
+exports.tm_shopify = async (req, res, t) => {
    try {
-      const p = await db.sequelize.query(`SELECT * FROM etc.tm_shopify`, { type: QueryTypes.SELECT });
+      const p = await db.sequelize.query(`SELECT * FROM etc.tm_shopify`, { type: QueryTypes.SELECT, transaction: t });
       // Sending a successful HTTP response (status code 200) with the fetched data in JSON format.
       res.status(200).send(JSON.stringify(p)); // Sending the fetched data as a JSON string response.
       // Logging the fetched data to the console for debugging purposes.
@@ -161,7 +161,7 @@ exports.tm_shopify = async (req, res) => {
 };
 
 // POST REQUESTS
-exports.insert_e_product = async (req, res) => {
+exports.insert_e_product = async (req, res, t) => {
    const e_product = await tables.e_product; // Ensure `e_product` is correctly imported from the database models.
    const data = req.body; // Extracting the request body data.
    console.log('data:', data); // Logging the request body data for debugging purposes.
@@ -174,7 +174,7 @@ exports.insert_e_product = async (req, res) => {
       // Attempting to insert all records from the `e_product` model using the `create` method.
       for (const record of data) {
          rec = record;
-         await e_product.create(record); // Inserting each record into the `e_product` model.
+         await e_product.create(record, {transaction: t}); // Inserting each record into the `e_product` model.
          console.log('Inserted into e_product:', record); // Logging the inserted record for debugging purposes.
       }  
       // Sending a successful HTTP response (status code 200) with a success message.
@@ -191,7 +191,7 @@ exports.insert_e_product = async (req, res) => {
    }
 };
 
-exports.insert_e_shopify = async (req, res) => {
+exports.insert_e_shopify = async (req, res, t) => {
    const e_shopify = await tables.e_shopify; // Ensure `e_shopify` is correctly imported from the database models.
    const data = req.body; // Extracting the request body data.
    console.log('data:', data); // Logging the request body data for debugging purposes.
@@ -204,7 +204,7 @@ exports.insert_e_shopify = async (req, res) => {
       // Attempting to insert all records from the `e_shopify` model using the `create` method.
       for (const record of data) {
          rec = record;
-         await e_shopify.create(record); // Inserting each record into the `e_shopify` model.
+         await e_shopify.create(record, {transaction: t}); // Inserting each record into the `e_shopify` model.
          console.log('Inserted into e_shopify:', record); // Logging the inserted record for debugging purposes.
       }
       // Sending a successful HTTP response (status code 200) with a success message.
@@ -221,7 +221,7 @@ exports.insert_e_shopify = async (req, res) => {
    }
 };
 
-exports.insert_la_nh_product = async (req, res) => {
+exports.insert_la_nh_product = async (req, res, t) => {
    const la_nh_product = await tables.la_nh_product; // Ensure `la_nh_product` is correctly imported from the database models.
    const data = req.body; // Extracting the request body data.
    console.log('data:', data); // Logging the request body data for debugging purposes.
@@ -234,7 +234,7 @@ exports.insert_la_nh_product = async (req, res) => {
       // Attempting to insert all records from the `e_product` model using the `create` method.
       for (const record of data) {
          rec = record;
-         await la_nh_product.create(record); // Inserting each record into the `la_nh_product` model.
+         await la_nh_product.create(record, {transaction: t}); // Inserting each record into the `la_nh_product` model.
          console.log('Inserted into la_nh_product:', record); // Logging the inserted record for debugging purposes.
       }
       // Sending a successful HTTP response (status code 200) with a success message.
@@ -251,7 +251,7 @@ exports.insert_la_nh_product = async (req, res) => {
    }
 };
 
-exports.insert_thd_product = async (req, res) => {
+exports.insert_thd_product = async (req, res, t) => {
    const thd_product = await tables.thd_product; // Ensure `thd_product` is correctly imported from the database models.
    const data = req.body; // Extracting the request body data.
    console.log('data:', data); // Logging the request body data for debugging purposes.
@@ -264,7 +264,7 @@ exports.insert_thd_product = async (req, res) => {
       // Attempting to insert all records from the `thd_product` model using the `create` method.
       for (const record of data) {
          rec = record;
-         await thd_product.create(record); // Inserting each record into the `thd_product` model.
+         await thd_product.create(record, {transaction: t}); // Inserting each record into the `thd_product` model.
          console.log('Inserted into thd_product:', record); // Logging the inserted record for debugging purposes.
       }
       // Sending a successful HTTP response (status code 200) with a success message.
@@ -281,7 +281,7 @@ exports.insert_thd_product = async (req, res) => {
    }
 };
 
-exports.insert_tm_product = async (req, res) => {
+exports.insert_tm_product = async (req, res, t) => {
    const tm_product = await tables.tm_product; // Ensure `tm_product` is correctly imported from the database models.
    const data = req.body; // Extracting the request body data.
    console.log('data:', data); // Logging the request body data for debugging purposes.
@@ -294,7 +294,7 @@ exports.insert_tm_product = async (req, res) => {
       // Attempting to insert all records from the `tm_product` model using the `create` method.
       for (const record of data) {
          rec = record;
-         await tm_product.create(record); // Inserting each record into the `tm_product` model.
+         await tm_product.create(record, {transaction: t}); // Inserting each record into the `tm_product` model.
          console.log('Inserted into tm_product:', record); // Logging the inserted record for debugging purposes.
       }
       // Sending a successful HTTP response (status code 200) with a success message.
@@ -311,7 +311,7 @@ exports.insert_tm_product = async (req, res) => {
    }
 };
 
-exports.insert_tm_shopify = async (req, res) => {
+exports.insert_tm_shopify = async (req, res, t) => {
    const tm_shopify = await tables.tm_shopify; // Ensure `tm_shopify` is correctly imported from the database models.
    const data = req.body; // Extracting the request body data.
    console.log('data:', data); // Logging the request body data for debugging purposes.
@@ -324,7 +324,7 @@ exports.insert_tm_shopify = async (req, res) => {
       // Attempting to insert all records from the `tm_shopify` model using the `create` method.
       for (const record of data) {
          rec = record;
-         await tm_shopify.create(record); // Inserting each record into the `tm_shopify` model.
+         await tm_shopify.create(record, {transaction: t}); // Inserting each record into the `tm_shopify` model.
          console.log('Inserted into tm_shopify:', record); // Logging the inserted record for debugging purposes.
       }
       // Sending a successful HTTP response (status code 200) with a success message.
@@ -342,7 +342,7 @@ exports.insert_tm_shopify = async (req, res) => {
 };
 
 // PUT REQUESTS
-exports.update_e_product = async (req, res) => {
+exports.update_e_product = async (req, res, t) => {
    const e_product = await tables.e_product; // Ensure `e_product` is correctly imported from the database models.
    const id = req.query.param //:id 
    const data = req.body; // Extracting the request body data.
@@ -354,6 +354,7 @@ exports.update_e_product = async (req, res) => {
          rec = record;
          if(id === record.internal_id) {
             await e_product.update(record, {
+               transaction: t,
                where: { 
                   internal_id: record.internal_id 
                } 
@@ -375,7 +376,7 @@ exports.update_e_product = async (req, res) => {
    }
 };
 
-exports.update_e_shopify = async (req, res) => {
+exports.update_e_shopify = async (req, res, t) => {
    const e_shopify = await tables.e_shopify; // Ensure `e_shopify` is correctly imported from the database models.
    const id = req.query.param //:id
    const data = req.body; // Extracting the request body data.
@@ -387,6 +388,7 @@ exports.update_e_shopify = async (req, res) => {
          for (const record of data) {
             rec = record;
             await e_shopify.update(record, {
+               transaction: t,
                where: { 
                   variant_sku: id
                } 
@@ -408,7 +410,7 @@ exports.update_e_shopify = async (req, res) => {
    }
 };
 
-exports.update_la_nh_product = async (req, res) => {
+exports.update_la_nh_product = async (req, res, t) => {
    const la_nh_product = await tables.la_nh_product; // Ensure `la_nh_product` is correctly imported from the database models.
    const id = req.query.param //:id
    const data = req.body; // Extracting the request body data.
@@ -420,6 +422,7 @@ exports.update_la_nh_product = async (req, res) => {
          for (const record of data) {
             rec = record;
             await la_nh_product.update(record, {
+               transaction: t,
                where: { 
                   externalid: id
                } 
@@ -441,7 +444,7 @@ exports.update_la_nh_product = async (req, res) => {
    }
 };
 
-exports.update_thd_product = async (req, res) => {
+exports.update_thd_product = async (req, res, t) => {
    const thd_product = await tables.thd_product; // Ensure `thd_product` is correctly imported from the database models.
    const id = req.query.param //:id
    const data = req.body; // Extracting the request body data.
@@ -453,6 +456,7 @@ exports.update_thd_product = async (req, res) => {
          for (const record of data) {
             rec = record;
             await thd_product.update(record, {
+               transaction: t,
                where: { 
                   internal_id: id
                } 
@@ -474,7 +478,7 @@ exports.update_thd_product = async (req, res) => {
    }
 };
 
-exports.update_tm_product = async (req, res) => {
+exports.update_tm_product = async (req, res, t) => {
    const tm_product = await tables.tm_product; // Ensure `tm_product` is correctly imported from the database models.
    const id = req.query.param //:id
    const data = req.body; // Extracting the request body data.
@@ -486,6 +490,7 @@ exports.update_tm_product = async (req, res) => {
          for (const record of data) {
             rec = record;
             await tm_product.update(record, {
+               transaction: t,
                where: { 
                   externalid: id
                } 
@@ -507,7 +512,7 @@ exports.update_tm_product = async (req, res) => {
    }
 };
 
-exports.update_tm_shopify = async (req, res) => {
+exports.update_tm_shopify = async (req, res, t) => {
    const tm_shopify = await tables.tm_shopify; // Ensure `tm_shopify` is correctly imported from the database models.
    const id = req.query.param //:id
    const data = req.body; // Extracting the request body data.
@@ -519,6 +524,7 @@ exports.update_tm_shopify = async (req, res) => {
          for (const record of data) {
             rec = record;
             await tm_shopify.update(record, {
+               transaction: t,
                where: { 
                   variant_sku: id
                } 
@@ -542,7 +548,7 @@ exports.update_tm_shopify = async (req, res) => {
 
 // DELETE REQUESTS
 
-exports.delete_e_product = async (req, res) => {
+exports.delete_e_product = async (req, res, t) => {
    const e_product = await tables.e_product; // Ensure `e_product` is correctly imported from the database models.
    const id = req.params.id || req.query.id; // Extracting the parameter from the route or query string.
    if (!id) {
@@ -570,6 +576,7 @@ exports.delete_e_product = async (req, res) => {
          rec = record;
          if(id === record.internal_id) {
             await e_product.destroy({
+               transaction: t,
                where: { 
                   internal_id: id
                } 
@@ -591,7 +598,7 @@ exports.delete_e_product = async (req, res) => {
    }
 };
 
-exports.delete_e_shopify = async (req, res) => {
+exports.delete_e_shopify = async (req, res, t) => {
    const e_shopify = await tables.e_shopify; // Ensure `e_shopify` is correctly imported from the database models.
    const id = req.params.id || req.query.id; // Extracting the parameter from the route or query string.
    if (!id) {
@@ -619,6 +626,7 @@ exports.delete_e_shopify = async (req, res) => {
          rec = record;
          if(id === record.internal_id) {
             await e_shopify.destroy({
+               transaction: t,
                where: { 
                   variant_sku: id
                } 
@@ -640,7 +648,7 @@ exports.delete_e_shopify = async (req, res) => {
    }
 };
 
-exports.delete_la_nh_product = async (req, res) => {
+exports.delete_la_nh_product = async (req, res, t) => {
    const la_nh_product = await tables.la_nh_product; // Ensure `la_nh_product` is correctly imported from the database models.
    const id = req.params.id || req.query.id; // Extracting the parameter from the route or query string.
    if (!id) {
@@ -668,6 +676,7 @@ exports.delete_la_nh_product = async (req, res) => {
          rec = record;
          if(id === record.external_id) {
             await la_nh_product.destroy({
+               transaction: t,
                where: { 
                   external_id: id
                } 
@@ -689,7 +698,7 @@ exports.delete_la_nh_product = async (req, res) => {
    }
 };
 
-exports.delete_thd_product = async (req, res) => {
+exports.delete_thd_product = async (req, res, t) => {
    const thd_product = await tables.thd_product; // Ensure `thd_product` is correctly imported from the database models.
    const id = req.params.id || req.query.id; // Extracting the parameter from the route or query string.
    if (!id) {
@@ -717,6 +726,7 @@ exports.delete_thd_product = async (req, res) => {
          rec = record;
          if(id === record.internal_id) {
             await thd_product.destroy({
+               transaction: t,
                where: { 
                   internal_id: id
                } 
@@ -738,7 +748,7 @@ exports.delete_thd_product = async (req, res) => {
    }
 };
 
-exports.delete_tm_product = async (req, res) => {
+exports.delete_tm_product = async (req, res, t) => {
    const tm_product = await tables.tm_product; // Ensure `tm_product` is correctly imported from the database models.
    const id = req.params.id || req.query.id; // Extracting the parameter from the route or query string.
    if (!id) {
@@ -766,6 +776,7 @@ exports.delete_tm_product = async (req, res) => {
          rec = record;
          if(id === record.externalid) {
             await tm_product.destroy({
+               transaction: t,
                where: { 
                   externalid: id
                } 
@@ -787,7 +798,7 @@ exports.delete_tm_product = async (req, res) => {
    }
 };
 
-exports.delete_tm_shopify = async (req, res) => {
+exports.delete_tm_shopify = async (req, res, t) => {
    const tm_shopify = await tables.tm_shopify; // Ensure `tm_shopify` is correctly imported from the database models.
    const id = req.params.id || req.query.id; // Extracting the parameter from the route or query string.
    if (!id) {
@@ -815,6 +826,7 @@ exports.delete_tm_shopify = async (req, res) => {
          rec = record;
          if(id === record.externalid) {
             await tm_shopify.destroy({
+               transaction: t,
                where: { 
                   variant_sku: id
                } 

@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true })); // Parses requests with URL-enc
 const db = require("./models"); // Import the database configuration and models.
 const Role = db.role; // Access the Role model.
 const User = db.user; // Access the User model.
-const Table = db.table; // Access the Table model (if applicable).
+const Tables = db.tables; // Access the Table model (if applicable).
 
 // Sync the database and optionally drop existing tables
 db.sequelize.sync({ force: false }).then(() => {

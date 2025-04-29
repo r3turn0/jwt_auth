@@ -23,17 +23,20 @@ const sequelize = new Sequelize(
   }
 );
 
+// Build the database object
 const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+// Add the models to the database object
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.info = require("../models/info.model.js")(sequelize, Sequelize);
 db.tables = require("../models/tables.model.js")(sequelize, Sequelize);
 db.rejected = require("./rejected.model.js")(sequelize, Sequelize);
 
+// Set up your tables and their relationships
 db.role.belongsToMany(db.user, {
   through: "user_roles"
 });
@@ -43,4 +46,5 @@ db.user.belongsToMany(db.role, {
 
 db.ROLES = ["user", "admin", "moderator"];
 
+// Export the database
 module.exports = db;

@@ -172,8 +172,8 @@ const deleteWithToken = async () => {
 };
 
 // Call the function to fetch data with token for e_product
-// fetchWithToken().catch((err) => console.error(err.message));
-//postWithToken().catch((err) => console.error(err.message));
+//fetchWithToken().catch((err) => console.error(err.message));
+postWithToken().catch((err) => console.error(err.message));
 //updateWithToken().catch((err) => console.error(err.message));
-deleteWithToken().catch((err) => console.error(err.message));
+//deleteWithToken().catch((err) => console.error(err.message));
 
