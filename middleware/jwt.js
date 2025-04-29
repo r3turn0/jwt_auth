@@ -95,4 +95,5 @@ const authJwt = {
   isModerator: isModerator,
   isModeratorOrAdmin: isModeratorOrAdmin
 };
+
 module.exports = authJwt; // Make the object available for import in other files.

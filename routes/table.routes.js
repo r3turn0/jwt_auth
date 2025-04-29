@@ -383,7 +383,7 @@ router.delete("/tm_shopify/delete/:id",
   async function(req, res) {
     const t = await sequelize.transaction();
     try {
-      await controller. (req, res, t)
+      await controller.delete_tm_shopify(req, res, t)
     }
     catch (error) {
       console.error("Error in transaction:", error);
@@ -394,5 +394,5 @@ router.delete("/tm_shopify/delete/:id",
   }
 );
 
-
+// Export the router
 module.exports = router;
