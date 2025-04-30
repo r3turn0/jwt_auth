@@ -11,7 +11,7 @@ module.exports = (sequelize, Sequelize) => {
         }
       },
       {
-        schema: 'etc',
+        schema: process.env.SCHEMA, // Use the schema from environment variables
         timestamps: false, // Disables Sequelize's createdAt and updatedAt fields
         freezeTableName: true, // Ensures Sequelize won't pluralize the table name
         hasPrimaryKey: false, // Indicate no primary key
