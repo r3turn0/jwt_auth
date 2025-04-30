@@ -18,5 +18,6 @@ module.exports = (sequelize, Sequelize) => {
         noPrimaryKey: true // Indicate no primary key
       }
     );
-return Info;
+    Info.removeAttribute('id'); // Remove the default 'id' attribute if it exists
+  return Info;
 };

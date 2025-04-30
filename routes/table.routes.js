@@ -297,7 +297,6 @@ router.put("/tm_shopify/update/:id",
 );
 
 // DELETE REQUESTS
-
 router.delete("/e_product/delete/:id",
     [authJwt.verifyToken],
     async function(req, res) {

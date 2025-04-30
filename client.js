@@ -116,6 +116,11 @@ const postWithToken = async () => {
       "internal_id": 1234567890,
       "externalid": "E0001-01426-TEST",
       "item_name": "Test Item"
+    },
+    { 
+      "internal_id": 1234567891,
+      "externalid": "E0001-01427-TEST",
+      "item_name": "Test Item 2"
     }])
   });
 
@@ -174,6 +179,6 @@ const deleteWithToken = async () => {
 // Call the function to fetch data with token for e_product
 //fetchWithToken().catch((err) => console.error(err.message));
 postWithToken().catch((err) => console.error(err.message));
-//updateWithToken().catch((err) => console.error(err.message));
-//deleteWithToken().catch((err) => console.error(err.message));
+updateWithToken().catch((err) => console.error(err.message));
+deleteWithToken().catch((err) => console.error(err.message));
 
